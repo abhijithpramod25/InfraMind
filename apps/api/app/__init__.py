@@ -1,0 +1,1 @@
+"""InfraMind API application package."""

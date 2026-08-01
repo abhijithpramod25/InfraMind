@@ -1,0 +1,15 @@
+.git
+.github
+.husky
+.pnpm-store
+node_modules
+**/node_modules
+**/.next
+**/__pycache__
+.env
+.venv
+.mypy_cache
+.pytest_cache
+.ruff_cache
+coverage
+docs

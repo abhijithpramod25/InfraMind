@@ -1,0 +1,37 @@
+[project]
+name = "inframind-api"
+version = "0.1.0"
+description = "InfraMind API service"
+requires-python = ">=3.13"
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["app"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+exclude = ["alembic"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+exclude = ["alembic"]
+
+[[tool.mypy.overrides]]
+module = ["redis.asyncio.*", "sqlalchemy.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
