@@ -4,10 +4,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.exception_handlers import register_exception_handlers
 from app.api.router import api_router
 from app.infrastructure.cache.redis_client import close_redis_client
 from app.infrastructure.config.settings import get_settings
 from app.infrastructure.database.session import close_database
+from app.core.logging import configure_logging
+from app.core.middleware import RequestIdMiddleware
 
 
 @asynccontextmanager
@@ -18,6 +21,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 
 settings = get_settings()
+configure_logging(settings.log_level)
 
 app = FastAPI(
     title=settings.app_name,
@@ -33,4 +37,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
+app.add_middleware(RequestIdMiddleware)
+register_exception_handlers(app)
 app.include_router(api_router)

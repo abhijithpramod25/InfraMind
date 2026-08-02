@@ -1,55 +1,74 @@
 # InfraMind
 
-Infrastructure Intelligence Powered by AI.
+> Infrastructure Intelligence Powered by AI
 
-InfraMind is a cloud-native SaaS foundation for an eventual AI-powered SRE platform. This repository intentionally contains only the platform baseline: a web application, API, PostgreSQL, Redis, and development tooling.
+InfraMind is a cloud-native SaaS platform foundation for future intelligent Site Reliability Engineering workflows. Version `0.1.0` intentionally provides engineering infrastructure only—no authentication, monitoring, AI, dashboards, or operational business features.
 
 ## Architecture
 
-The monorepo separates deployable applications from reusable packages and infrastructure. The FastAPI application follows a layered architecture (`api` -> `application` -> `domain` / `infrastructure`) so future integrations and services can be added without leaking transport or storage concerns into core business logic.
+```mermaid
+flowchart LR
+    W[Next.js web] --> A[FastAPI API]
+    A --> P[(PostgreSQL)]
+    A --> R[(Redis)]
+    A --> L[Structured logs]
+```
+
+The monorepo keeps deployable applications, reusable packages, infrastructure, and documentation independent. The API uses transport, application-service, domain, and infrastructure boundaries. See [Architecture.md](docs/Architecture.md).
 
 ## Folder structure
 
 ```text
 apps/       Deployable web and API applications
-packages/   Reusable UI, shared utilities, and TypeScript contracts
-infra/      Container and infrastructure configuration
-docs/       Architecture and operational documentation
-scripts/    Repository automation
+packages/   Future shared UI, utilities, and TypeScript contracts
+infra/      Container and deployment configuration
+docs/       Architecture and engineering documentation
+scripts/    Safe repository automation
 ```
 
-## Technology stack
+## Tech stack
 
 - Next.js, TypeScript, Tailwind CSS, TanStack Query, Zustand
 - FastAPI, Pydantic Settings, SQLAlchemy 2, Alembic
-- PostgreSQL and Redis
-- Docker Compose for consistent local development
+- PostgreSQL, Redis, Docker Compose
 
-## Setup
+## Local and Docker setup
 
-1. Copy `.env.example` to `.env` and set development-only values.
-2. Start all services:
+1. Copy `.env.example` to `.env` and replace all development values as needed.
+2. Install Docker Desktop with Compose support.
+3. Start the platform:
 
    ```bash
    docker compose up --build
    ```
 
-3. Open `http://localhost:3000`. API docs are at `http://localhost:8000/docs`.
+The web application is at `http://localhost:3000`; API documentation is at `http://localhost:8000/docs` in development.
 
-The API liveness endpoint is `GET http://localhost:8000/health`. Dependency readiness is available at `GET http://localhost:8000/health/ready`.
+## API health endpoints
+
+- `GET /health` — legacy liveness endpoint retained for compatibility.
+- `GET /health/ready` — legacy readiness endpoint retained for compatibility.
+- `GET /api/v1/health` — versioned, standard-envelope liveness endpoint.
+- `GET /api/v1/health/ready` — versioned dependency readiness endpoint.
 
 ## Development workflow
 
-Install frontend dependencies with `pnpm install`, then use `pnpm dev`, `pnpm lint`, `pnpm format:check`, and `pnpm typecheck`. For the API, create a Python 3.13 virtual environment, install `apps/api/requirements-dev.txt`, and run `uvicorn app.main:app --reload` from `apps/api`.
+Use `make help` to see the standard local commands. `make up`, `make down`, `make build`, `make logs`, `make test`, `make lint`, and `make format` are available. Frontend-only commands use pnpm: `pnpm lint`, `pnpm typecheck`, and `pnpm build`.
 
-Database schema changes must be created through Alembic migrations; there are deliberately no business models or migrations yet.
+Read [Development.md](docs/Development.md) and [CodingStandards.md](docs/CodingStandards.md) before contributing.
 
-## Future roadmap
+## Roadmap
 
-- Authentication and organization tenancy
-- Observability data ingestion and integrations
-- Deployment and incident correlation
-- Kubernetes topology and infrastructure visualization
-- AI-assisted incident investigation
+The platform foundation is intended to support future tenancy, observability ingestion, deployment correlation, infrastructure topology, and AI-assisted investigation. These features are intentionally out of scope for this version.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution requirements.
+## Screenshots
+
+_Product screenshots will be added as user-facing capabilities are introduced._
+
+## License
+
+License terms are not yet defined. Do not assume open-source reuse rights until a license is added.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).

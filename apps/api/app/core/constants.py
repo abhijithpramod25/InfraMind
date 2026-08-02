@@ -1,0 +1,11 @@
+"""Stable platform constants; keep protocol values out of application code."""
+
+API_V1_PREFIX = "/api/v1"
+HEALTH_LEGACY_PATH = "/health"
+HEALTH_READINESS_PATH = "/health/ready"
+REQUEST_ID_HEADER = "X-Request-ID"
+DEFAULT_CORS_ORIGIN = "http://localhost:3000"
+APPLICATION_JSON = "application/json"
+STATUS_HEALTHY = "healthy"
+STATUS_DEGRADED = "degraded"
+STATUS_UNHEALTHY = "unhealthy"
