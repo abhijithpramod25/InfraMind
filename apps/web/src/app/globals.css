@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: #08111f; font-family: Arial, Helvetica, sans-serif; }
+:root {
+  --canvas: 222 47% 7%;
+  --surface: 222 38% 10%;
+  --panel: 222 31% 13%;
+  --foreground: 210 40% 96%;
+  --muted: 215 18% 65%;
+  --line: 217 25% 20%;
+  --signal: 159 63% 55%;
+}
+:root[data-theme='light'] {
+  --canvas: 210 33% 98%;
+  --surface: 0 0% 100%;
+  --panel: 210 25% 96%;
+  --foreground: 222 47% 11%;
+  --muted: 215 16% 40%;
+  --line: 214 22% 88%;
+  --signal: 160 58% 32%;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: hsl(var(--canvas));
+  color: hsl(var(--foreground));
+  font-family: Arial, Helvetica, sans-serif;
+}
+button,
+input {
+  font: inherit;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid hsl(var(--signal));
+  outline-offset: 2px;
+}

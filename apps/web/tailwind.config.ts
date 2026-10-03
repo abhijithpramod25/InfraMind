@@ -5,10 +5,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: '#08111f',
-        surface: '#0f1b2d',
-        line: '#22324a',
-        signal: '#65d8b1',
+        canvas: 'hsl(var(--canvas))',
+        surface: 'hsl(var(--surface))',
+        panel: 'hsl(var(--panel))',
+        line: 'hsl(var(--line))',
+        signal: 'hsl(var(--signal))',
+        foreground: 'hsl(var(--foreground))',
+        muted: 'hsl(var(--muted))',
       },
     },
   },

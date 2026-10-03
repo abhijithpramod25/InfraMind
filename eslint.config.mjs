@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 
 export default [
   {
-    ignores: ['.next/**', 'node_modules/**', 'dist/**', 'build/**', 'coverage/**', 'next-env.d.ts'],
+    ignores: ['.next/**', 'node_modules/**', 'dist/**', 'build/**', 'coverage/**'],
   },
 
   js.configs.recommended,
@@ -15,19 +15,16 @@ export default [
 
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
-
     plugins: {
       '@next/next': nextPlugin,
       react,
       'react-hooks': reactHooks,
     },
-
     settings: {
       react: {
         version: 'detect',
       },
     },
-
     rules: {
       ...nextPlugin.configs.recommended.rules,
       ...react.configs.recommended.rules,
